@@ -13,7 +13,7 @@ out:	.asciz "The %dth Fibonacci number is %d\n"
         .global main
         .type main, %function
 
-main:
+main: @Allen Yang 012695877
 	push {fp, lr}
 	add fp, sp, #4
 	
