@@ -1,0 +1,33 @@
+	.cpu cortex-a72
+	.fpu neon-fp-armv8
+
+	.data
+p1:	.asciz "Enter first positive integer: "
+p2:	.asciz "Enter second positive integer: "
+in:	.asciz "%d"
+out:	.asciz "The GCD is %d\n"
+
+	.text
+	.align 2
+	.global main
+	.type main, %function
+
+main:
+	push {fp, lr}
+	add fp, sp, #4
+
+	ldr r0, =p1
+	bl printf
+
+	sub sp, sp, #4
+	ldr r0, =p1
+	mov r1, sp
+	bl scanf
+	ldr r4, [sp]  @pops first number from stack into register 8
+
+	ldr r0, =in
+	mov r1, r4
+	bl printf
+
+	sub sp, fp, #4
+	pop {fp, pc}

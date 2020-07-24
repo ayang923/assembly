@@ -1,0 +1,54 @@
+       @define CPU/FPU
+        .cpu cortex-a72 @ for pi 4
+        .fpu neon-fp-armv8 @ math coprocessor for pi 4
+
+        @define data section
+        .data
+prompt:	.asciz "Enter Fibonacci term: "
+in:  .asciz "%d" 
+out:	.asciz "The %dth Fibonacci number is %d"
+
+        .text
+        .align 2
+        .global main
+        .type main, %function
+
+main:
+	push {fp, lr}
+	add fp, sp, #4
+	
+	ldr r0, =prompt
+	bl printf
+
+	ldr r0, =in
+	sub sp, sp, #4
+	mov r1, sp
+	bl scanf
+
+	ldr  r4, [sp] @ n is loaded into r4
+
+	mov r2, #1 @a = 1
+	mov r3, #1 @b = 1
+	mov r0, #2 @i = 2
+	mov r9, #1 @c = 1 so that if n = 1 or 2 the answer is still right
+	
+fibLoop:
+	cmp r0, r4
+	bge endLoop
+
+	add r9, r2, r3
+	mov r2, r3
+	mov r3, r9
+
+	add r0, r0, #1
+	b fibLoop
+
+endLoop:
+	ldr r0, =out
+	mov r1, r4
+	mov r2, r9
+
+	bl printf
+	
+	sub sp, fp, #4
+	pop {fp, pc}
