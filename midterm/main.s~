@@ -1,0 +1,68 @@
+	.cpu cortex-a72
+        .fpu neon-fp-armv8
+
+        .data
+prompt:	.asciz "Enter a zip code: "
+in:	.asciz "%d"
+char:	.asciz "%c\n"
+out:	.asciz "%s\n"
+	
+        .text
+        .align 2
+        .global main
+        .type main, %function
+
+main:
+	push {fp, lr}
+	add fp, sp, #4
+
+	ldr r0, =prompt @asks for zip code
+	bl printf
+
+	sub sp, sp, #4
+	ldr r0, =in
+	mov r1, sp
+	bl scanf
+
+	sub sp, sp, #128 @allocates 128 bits for 32 character array
+	
+	mov r0, #124
+	str r0, [r6] @stores pipe at sp colon is 58
+
+	mov r9, #4 @i=
+	mov r10, r5 @temp copy of zip code4
+
+startForLoop:
+	cmp r9, #0
+	blt endForLoop
+	
+	mov r0, r9 
+	bl base @r0 = base
+
+	udiv r7, r10, r0 @get digit
+
+	mov r0, r8
+
+	str r8, [fp, #-136]
+	
+	cmp r7, #0
+	@beq digit_pat_0
+	bne digit_pat
+
+	mul r8, r8, r7
+	sub r10, r8 @modulo operation
+
+	mov r1, r7
+	ldr r0, =in
+	bl printf
+
+	sub r9, r9, #1 @increments i
+	b startForLoop
+	
+endForLoop:	
+	
+	sub sp, fp, #4
+	pop {fp, pc}
+
+	
+	

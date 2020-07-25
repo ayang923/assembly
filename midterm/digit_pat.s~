@@ -1,0 +1,29 @@
+	.cpu cortex-a72
+        .fpu neon-fp-armv8
+
+        .data
+0:	.asciz ""
+1:	.asicz ":::||"
+2:	.asciz ""
+3:	.asciz ""
+4:	.asciz ""
+5:	.asciz ""
+6:	.asciz ""
+7:	.asciz ""
+8:	.asciz ""
+9:	.asciz ""
+	
+	
+        .text
+        .align 2
+        .global digit_pat
+        .type digit_pat, %function
+
+digit_pat:
+	push {fp, lr}
+	add fp, sp, #4
+
+	@push {#1, #2, #4, #7}
+
+	sub sp, fp, #4
+	pop {fp, pc}
