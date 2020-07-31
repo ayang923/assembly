@@ -1,0 +1,43 @@
+	.cpu cortex-a72
+	.fpu neon-fp-armv8
+
+	.data
+prompt:	.asciz "Enter a number: "
+input:	.asciz "%d"
+outt:	.asicz "The number is a prime"
+outf:	.asiz "The number is not a prime"
+
+	.text
+	.align 2
+	.global main
+	.type main, %function
+
+main:
+	push {fp, lr}
+	add fp, sp, #4
+
+	ldr r0, =prompt
+	bl printf
+
+	sub sp, sp, #4
+	mov r1, sp
+	ldr r0, =input
+	bl scanf
+
+	ldr r0, [sp]
+	bl prime
+
+	cmp r0, #1
+	bne notPrime
+	ldr r0, =outt
+	b endProgram
+
+notPrime:
+	ldr r0, =outf
+
+endProgram:
+	bl printf
+	sub sp, fp, #4
+	pop {fp, pc}
+
+	

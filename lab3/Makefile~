@@ -1,0 +1,11 @@
+checkPrime: main.o checkPrimeNumber.o
+	gcc -g -o checkPrime main.o checkPrimeNumber.o
+
+main.o: main.c
+	gcc -c main.c
+
+checkPrimeNumber.o: checkPrimeNumber.s
+	gcc -c checkPrimeNumber.s
+
+clean:
+	rm *.o
