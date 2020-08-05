@@ -29,6 +29,10 @@ main:
 	bl fillBooth @fills booth with 0s
 	pop {r5}
 
+	mov r0, sp
+	mov r1, #5
+	bl insertBooth
+
 	mov r0, sp @passes in address as parameter 1
 	mov r1, r5 @passes in number of booths
 	bl printBooth
