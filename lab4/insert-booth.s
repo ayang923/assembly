@@ -2,7 +2,7 @@
 	.fpu neon-fp-armv8
 
 	.data
-
+test:	.asciz "%d\n"
 	.text
 	.align 2
 	.global insertBooth

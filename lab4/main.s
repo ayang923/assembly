@@ -38,7 +38,8 @@ main:
 	push {r5} @stores number of booths in memory
 
 	bl nextVisitor
-
+	pop {r5}
+	
 	mov r1, r0 @stores position in r1
 	mov r0, sp
 	
