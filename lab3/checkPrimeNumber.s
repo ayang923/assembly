@@ -39,11 +39,6 @@ zero:
 	b endForLoop @ branches to the end of the program
 	
 endForLoop:
-	ldr r0, =test
-	mov r1, r4
-
-	@bl printf
-
 	mov r0, r4 @puts return value in r0
 	
 	sub fp, sp, #4
