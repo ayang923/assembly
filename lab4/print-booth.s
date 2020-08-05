@@ -33,28 +33,28 @@ startForLoop:
 
 	ldr r4, [r8, r4] @loads value of array from stack
 
-	cmp r4, #0
-	beq printFalse
-	bne printTrue
+	cmp r4, #0 @compares with false
+	beq printFalse @prints _ if false
+	bne printTrue @prints X if true
 
 returnLoop:
 	add r6, r6, #1 @i++
 	b startForLoop
 
 printFalse:
-	ldr r0, =character
-	mov r1, #95
+	ldr r0, =character @prints _
+	mov r1, #95 
 	bl printf
 	b returnLoop
 
 printTrue:
-	ldr r0, =character
+	ldr r0, =character @prints X
 	mov r1, #88
 	bl printf
 	b returnLoop
 	
 endLoop:
-	ldr r0, =nl
+	ldr r0, =nl @prints newline at end
 	bl printf
 	
 	sub sp, fp, #4

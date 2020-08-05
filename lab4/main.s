@@ -37,17 +37,17 @@ main:
 	mov r1, r5 @passes in number of booths
 	push {r5} @stores number of booths in memory
 
-	bl nextVisitor
-	pop {r5}
+	bl nextVisitor @ returns position of next visitor in r0
+	pop {r5} @ pops number of booths back into memory
 	
 	mov r1, r0 @stores position in r1
-	mov r0, sp
+	mov r0, sp @ stores address of array
 	
-	bl insertBooth
+	bl insertBooth @ inserts person at booth position
 
-	mov r0, sp
+	mov r0, sp 
 	mov r1, r5
-	bl printBooth
+	bl printBooth @ prints booth
 	
-	sub sp, fp, #4
-	pop {fp, pc}
+	sub sp, fp, #4 @ moves stack pointer to position of frame pointer
+	pop {fp, pc} @ pops previous frame pointer into frame pointer register and pops link register into program counter
