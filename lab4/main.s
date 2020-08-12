@@ -12,7 +12,7 @@ test:	.asciz "%d\n"
 	.global main
 	.type main, %function
 
-main:
+main: @ Allen Yang 012695877
 	push {fp, lr}
 	add fp, sp, #4
 
