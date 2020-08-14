@@ -2,19 +2,22 @@ position_booth: main.o next-visitor.o print-booth.o fill-booth.o insert-booth.o
 	gcc -g -o position_booth main.o next-visitor.o print-booth.o fill-booth.o insert-booth.o
 
 main.o: main.s
-	gcc -c main.s
+	gcc -c -g main.s
 
 next-visitor.o: next-visitor.s
-	gcc -c next-visitor.s
+	gcc -c -g next-visitor.s
 
 print-booth.o: print-booth.s
-	gcc -c print-booth.s
+	gcc -c -g print-booth.s
 
 fill-booth.o: fill-booth.s
-	gcc -c fill-booth.s
+	gcc -c -g fill-booth.s
 
 insert-booth.o: insert-booth.s
-	gcc -c insert-booth.s
+	gcc -c -g insert-booth.s
 
 clean:
-	rm *.o
+	rm *.o *~
+
+clean-binary:
+	rm position_booth
