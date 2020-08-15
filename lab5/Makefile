@@ -1,11 +1,27 @@
-goFish: main.o initialize.o
-	gcc -g -o goFish main.o initialize.o
+goFish: main.o initialize.o shuffle.o modulo.o drawCard.o drawSeven.o printDeck.o
+	gcc -g -o goFish main.o initialize.o shuffle.o modulo.o drawCard.o drawSeven.o printDeck.o
 
 main.o: main.s
-	gcc -c main.s
+	gcc -c -g main.s
 
 initialize.o: initialize.s
-	gcc -c initialize.s
+	gcc -c -g initialize.s
+
+shuffle.o: shuffle.s
+	gcc -c -g shuffle.s
+
+modulo.o: modulo.s
+	gcc -c -g modulo.s
+
+drawCard.o: drawCard.s
+	gcc -c -g drawCard.s
+
+drawSeven.o: drawSeven.s
+	gcc -c -g drawSeven.s
+
+printDeck.o: printDeck.s
+	gcc -c -g printDeck.s
 
 clean:
 	rm *.o
+	rm *~
