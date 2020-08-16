@@ -75,23 +75,23 @@ main:
 	pop {r4, r5, r6, r7, r8, r9}
 
 	mov r7, r0 @numbers of cards drawn is stored in r7
-	mov r10, #0 @i=0
 
+        @allocats space for pairs
+        mov r0, #4
+        bl malloc
+        push {r0} @space for human pairs
 
-	mov r0, r5
-	mov r1, r8
+	mov r0, #4
+	bl malloc
+	push {r0} @space for computer pairs
 
-	push {r9, r8, r7, r6, r5, r4}
-	bl printDeck
-	pop {r4, r5, r6, r7, r8, r9}
+	mov r0, #0
+	push {r0} @number of human pairs
 
-	mov r0, r6
-	mov r1, r9
-
-	push {r9, r8, r7, r6, r5, r4}
-	bl printDeck
-	pop {r4, r5, r6, r7, r8, r9}
-	@tests goFish
+	mov r1, #0
+	push {r0} @number of computer pairs
+	
+	@Starts Game
 
 	push {r5}
 	push {r6}
@@ -100,25 +100,12 @@ main:
 	push {r8}
 	push {r9}
 
-	sub sp, sp, #4
-	ldr r0, =digitInput
-	mov r1, sp
-	bl scanf
-
-	pop {r1}
-	
 	mov r0, sp
 
-	@mov r1, #13
-	bl askForCard
+	bl gameDriver
 
-	ldr r5, [sp, #20]
-	ldr r6, [sp, #16]
-        ldr r7,	[sp, #12]
 	ldr r4,	[sp, #8]
-	ldr r8,	[sp, #4]
-	ldr r9,	[sp]
-	
+
 	mov r0, r4
 	bl fclose
 

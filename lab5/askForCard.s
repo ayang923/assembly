@@ -2,6 +2,7 @@
         .fpu neon-fp-armv8
 
         .data
+        .equ ncards, 52
 goFishPrompt:	.asciz "Go Fish! Draw a Card\n"
 invalidCardPrompt:	.asciz "Please choose a card that can be paired up\n"
 test:	.asciz "%d\n"
@@ -27,7 +28,6 @@ askForCard:
 	ldr r5, [r7, #16] @address of receiving
 	
 	mov r8, #0 @i=0
-
 startCheckOwnHand:
 	ldr r0, [r7] @loads length of own hand
 	cmp r8, r0
@@ -92,12 +92,9 @@ goFish:
 	add r1, r1, r4 @calculates position of new card
 
 	ldr r2, [r7, #12] @total number of cards
-	bl drawCard @draws card
+	cmp r2, #ncards
+	bllt drawCard @draws card
 	str r0, [r7, #12] @stores total number of cards drawn
-	
-	mov r0, r4 @prints new deck
-	ldr r1, [r7]
-	bl printDeck
 
 	mov r0, #1 @returns true
 	b endProgram
@@ -144,8 +141,9 @@ giveCard:
 	str r1, [r5, r0]
 	
 	mov r0, #1 @returns true
+
+	b endProgram
 	
 endProgram:
-
 	sub sp, fp, #4
 	pop {fp, pc}
