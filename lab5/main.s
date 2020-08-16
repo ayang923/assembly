@@ -9,13 +9,14 @@ digit:	.asciz "%d\n"
 fileName:	.asciz "deck.dat"
 rwIOw:	.asciz "w"
 rwIOr:	.asciz "r"
+digitInput:	.asciz "%d"
 	
         .text
         .align 2
         .global main
         .type main, %function
 
-main:
+main: @Allen Yang 012695877
 	push {fp, lr}
 	add fp, sp, #4
 
@@ -24,7 +25,7 @@ main:
 	mul r0, r0, r1
 	sub sp, sp, r0 @allocates an array of 13 4-byte integers to keep track of how many of each card
 
-	@initializes arrays to all 0s
+	@initializs arrays to all 0s
 	mov r0, sp @address of array
 	mov r1, #ntypes @different types of cards
 	bl initialize
@@ -74,16 +75,36 @@ main:
 	pop {r4, r5, r6, r7, r8, r9}
 
 	mov r7, r0 @numbers of cards drawn is stored in r7
-	mov r10, #0 @i=0
 
-	@prints cards
+        @allocats space for pairs
+        mov r0, #4
+        bl malloc
+        push {r0} @space for human pairs
+
+	mov r0, #4
+	bl malloc
+	push {r0} @space for computer pairs
+
+	mov r0, #0
+	push {r0} @number of human pairs
+
+	mov r1, #0
+	push {r0} @number of computer pairs
 	
-	mov r0, r5
-	mov r1, r8
+	@Starts Game
 
-	push {r4, r5, r6, r7, r8, r9}
-	bl printDeck
-	pop {r4, r5, r6, r7, r8, r9}
+	push {r5}
+	push {r6}
+	push {r7}
+	push {r4}
+	push {r8}
+	push {r9}
+
+	mov r0, sp
+
+	bl gameDriver
+
+	ldr r4,	[sp, #8]
 	
 	mov r0, r4
 	bl fclose

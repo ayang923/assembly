@@ -1,5 +1,5 @@
-goFish: main.o initialize.o shuffle.o modulo.o drawCard.o drawSeven.o printDeck.o
-	gcc -g -o goFish main.o initialize.o shuffle.o modulo.o drawCard.o drawSeven.o printDeck.o
+goFish: main.o initialize.o shuffle.o modulo.o drawCard.o drawSeven.o printDeck.o askForCard.o findPairs.o printPairs.o gameDriver.o
+	gcc -g -o goFish main.o initialize.o shuffle.o modulo.o drawCard.o drawSeven.o printDeck.o askForCard.o findPairs.o printPairs.o gameDriver.o
 
 main.o: main.s
 	gcc -c -g main.s
@@ -21,6 +21,18 @@ drawSeven.o: drawSeven.s
 
 printDeck.o: printDeck.s
 	gcc -c -g printDeck.s
+
+askForCard.o: askForCard.s
+	gcc -c -g askForCard.s
+
+findPairs.o: findPairs.s
+	gcc -c -g findPairs.s
+
+printPairs.o: printPairs.s
+	gcc -c -g printPairs.s
+
+gameDriver.o: gameDriver.s
+	gcc -c -g gameDriver.s
 
 clean:
 	rm *.o
