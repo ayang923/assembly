@@ -140,7 +140,7 @@ giveCard:
 	mul r0, r8, r2 @offset of current position
 	str r1, [r5, r0]
 	
-	mov r0, #1 @returns true
+	mov r0, #2 @returns 2 if not gofish
 
 	b endProgram
 	

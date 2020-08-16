@@ -16,7 +16,7 @@ digitInput:	.asciz "%d"
         .global main
         .type main, %function
 
-main:
+main: @Allen Yang 012695877
 	push {fp, lr}
 	add fp, sp, #4
 
@@ -105,7 +105,7 @@ main:
 	bl gameDriver
 
 	ldr r4,	[sp, #8]
-
+	
 	mov r0, r4
 	bl fclose
 
