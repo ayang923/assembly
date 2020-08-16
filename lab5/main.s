@@ -9,6 +9,7 @@ digit:	.asciz "%d\n"
 fileName:	.asciz "deck.dat"
 rwIOw:	.asciz "w"
 rwIOr:	.asciz "r"
+digitInput:	.asciz "%d"
 	
         .text
         .align 2
@@ -24,7 +25,7 @@ main:
 	mul r0, r0, r1
 	sub sp, sp, r0 @allocates an array of 13 4-byte integers to keep track of how many of each card
 
-	@initializes arrays to all 0s
+	@initializs arrays to all 0s
 	mov r0, sp @address of array
 	mov r1, #ntypes @different types of cards
 	bl initialize
@@ -76,14 +77,47 @@ main:
 	mov r7, r0 @numbers of cards drawn is stored in r7
 	mov r10, #0 @i=0
 
-	@prints cards
-	
+
 	mov r0, r5
 	mov r1, r8
 
-	push {r4, r5, r6, r7, r8, r9}
+	push {r9, r8, r7, r6, r5, r4}
 	bl printDeck
 	pop {r4, r5, r6, r7, r8, r9}
+
+	mov r0, r6
+	mov r1, r9
+
+	push {r9, r8, r7, r6, r5, r4}
+	bl printDeck
+	pop {r4, r5, r6, r7, r8, r9}
+	@tests goFish
+
+	push {r5}
+	push {r6}
+	push {r7}
+	push {r4}
+	push {r8}
+	push {r9}
+
+	sub sp, sp, #4
+	ldr r0, =digitInput
+	mov r1, sp
+	bl scanf
+
+	pop {r1}
+	
+	mov r0, sp
+
+	@mov r1, #13
+	bl askForCard
+
+	ldr r5, [sp, #20]
+	ldr r6, [sp, #16]
+        ldr r7,	[sp, #12]
+	ldr r4,	[sp, #8]
+	ldr r8,	[sp, #4]
+	ldr r9,	[sp]
 	
 	mov r0, r4
 	bl fclose

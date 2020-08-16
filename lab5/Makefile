@@ -1,5 +1,5 @@
-goFish: main.o initialize.o shuffle.o modulo.o drawCard.o drawSeven.o printDeck.o
-	gcc -g -o goFish main.o initialize.o shuffle.o modulo.o drawCard.o drawSeven.o printDeck.o
+goFish: main.o initialize.o shuffle.o modulo.o drawCard.o drawSeven.o printDeck.o askForCard.o
+	gcc -g -o goFish main.o initialize.o shuffle.o modulo.o drawCard.o drawSeven.o printDeck.o askForCard.o
 
 main.o: main.s
 	gcc -c -g main.s
@@ -21,6 +21,9 @@ drawSeven.o: drawSeven.s
 
 printDeck.o: printDeck.s
 	gcc -c -g printDeck.s
+
+askForCard.o: askForCard.s
+	gcc -c -g askForCard.s
 
 clean:
 	rm *.o
